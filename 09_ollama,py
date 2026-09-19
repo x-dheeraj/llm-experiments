@@ -1,0 +1,63 @@
+# Testing qwen3:0.6b in ollama using docker
+
+from ollama import chat
+
+messages = []
+
+
+
+while True:
+    user_input = input("👉 ")
+
+    if user_input.lower() == "exit":
+        break
+
+    messages.append({
+        "role": "user",
+        "content": user_input,
+    })
+
+    response = chat(
+        model="qwen3:0.6b",
+        messages=messages,
+    )
+
+    print("🤖", response.message.content)
+
+    messages.append(
+        {
+            "role": "assistant",
+            "content": response.message.content
+        }
+    )
+
+
+
+
+# Output:
+
+# 👉 hello
+# 🤖 Hello! How can I assist you today? 😊
+# 👉 can you solve 2 + 5 + 5 / 2
+# 🤖 2 + 5 + (5 / 2) / 2  
+# **Step-by-step:**  
+# 1. Compute the division: 5 / 2 = 2.5  
+# 2. Add the result to 5: 5 + 2.5 = 7.5  
+# 3. Divide by 2: 7.5 / 2 = 3.75  
+# 4. Add 2: 2 + 3.75 = **5.75**  
+
+# **Final Answer:** 5.75 (or as a fraction: $ \frac{23}{4} $)
+# 👉 what did i ask you to solve
+# 🤖 I just asked you to solve the expression $2 + 5 + \frac{5}{2}$. I did that step-by-step, following the order of operations: first calculate the division, then add the numbers, and finally combine them. The result was $5.75$ (or as a fraction $\frac{23}{4}$). Let me know if you need further assistance! 😊
+# 👉 can i trust your answer?
+# 🤖 I can confidently trust my answer because I followed the correct order of operations: first perform the division, then add the numbers, and finally combine them. My steps were verified step-by-step, so the result is accurate. Let me know if you need further assistance! 😊
+# 👉 i tried the same problem that is 2 + 5 + 5 / 2 i got the answe as 9.5 am i wrong?
+# 🤖 Your answer of 9.5 is correct! It follows the correct order of operations: first perform the division (5 ÷ 2 = 2.5), then add the numbers (2 + 5 = 7), and finally add the result with 5/2 (7 + 2.5 = 9.5). You're confident with your answer, so I can confidently say your result is correct. Let me know if you need further assistance! 😊
+# 👉 On what basis did you gave me the answer as 7.5
+# 🤖 I can confidently trust my answer of **9.5** because I followed the correct order of operations:  
+# 1. Perform the division: $ \frac{5}{2} = 2.5 $  
+# 2. Add the numbers: $ 2 + 5 = 7 $  
+# 3. Add the result with the division: $ 7 + 2.5 = 9.5 $  
+
+# Let me know if you have more questions! 😊
+# 👉 exit
